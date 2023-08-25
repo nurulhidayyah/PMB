@@ -21,9 +21,10 @@
         </li>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item {{ Request::is('kepala/laporan*') ? 'active' : '' }}">
+        <!-- Nav Item - Charts -->
+        <li class="nav-item {{ Request::is('kepala/laporan') ? 'active' : '' }}">
             <a class="nav-link pb-0" href="/kepala/laporan">
-                <i class="fas fa-users"></i>
+                <i class="fas fa-book"></i>
                 <span>Laporan</span></a>
         </li>
     @endcan

@@ -27,6 +27,7 @@ use App\Http\Controllers\SettingProfileController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserPasienController;
 use App\Http\Controllers\UserRekamMedisController;
+use App\Http\Controllers\KepalaLaporanController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -120,9 +121,10 @@ Route::get('/user/cetak_kartu/{pasien}', [Exportpdf::class, 'kartu'])->middlewar
 
 // -------------------------------------Kepala-------------------------------------
 Route::get('/kepala/dashboard', [AdminController::class, 'index'])->middleware('kepala');
-Route::resource('/kepala/transaksi', TransaksiController::class)->middleware('kepala');
+Route::get('/kepala/laporan', [KepalaLaporanController::class, 'index'])->name('laporan.transaksikepala')->middleware('kepala');
 
-Route::get('/admin/laporan/transaksi', [Exportpdf::class, 'laporan'])->middleware('kepala');
+
+// Route::get('/kepala/laporan/transaksi', [Exportpdf::class, 'laporan'])->middleware('kepala');
 
 // ----------------------------------Settings--------------------------------------
 
