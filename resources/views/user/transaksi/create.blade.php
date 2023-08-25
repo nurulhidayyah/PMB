@@ -5,6 +5,7 @@
 @endsection
 
 @section('container')
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <h1 class="h3 mb-4 text-gray-800">Selamat Datang {{ auth()->user()->nama }}</h1>
 
     <h4 class="h4 mb-4 text-gray-800">Form Transaksi</h4>
@@ -24,14 +25,28 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="pasien_id">NIK Pasien</label>
-                    <select name="pasien_id" id="pasien_id" class="form-control @error('pasien_id') is-invalid @enderror"
+                    <select name="pasien_id" id="pasien_id" class="form-control @error('berat_badan') is-invalid @enderror"
                         required>
-                        <option value="">NIK Pasien</option>
+                        <option value="">Masukan NIK Pasien</option>
+                        @php
+                            // Mengambil data pasien dari database dan mengurutkannya berdasarkan nama pasien dalam urutan abjad
+                            $pasiens = App\Models\Pasien::orderBy('nama_pasien')->get();
+                        @endphp
                         @foreach ($pasiens as $pasien)
-                            <option value="{{ $pasien->id }}">{{ $pasien->nama_pasien }}-{{ $pasien->nik }}</option>
+                            <option value="{{ $pasien->id }}">{{ $pasien->nama_pasien }} - {{ $pasien->nik }}</option>
                         @endforeach
                     </select>
-                    @error('pasien_id')
+                    @error('berat_badan')
+                        <small class="text-danger pl-3">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="tanggal">Tanggal Transaksi</label>
+                    <input type="date" name="tanggal" id="tanggal" class="form-control @error('tanggal') is-invalid @enderror"
+                        value="{{ old('tanggal') }}" required placeholder="Masukan Tanggal Transaksi">
+                    @error('pembayaran')
                         <small class="text-danger pl-3">
                             {{ $message }}
                         </small>
@@ -41,6 +56,7 @@
                     <label for="penanganan_id">Layanan</label>
                     <select name="penanganan_id" id="penanganan_id"
                         class="form-control @error('penanganan_id') is-invalid @enderror" required>
+                        <option for="pasien_id">Masukan Harga Layanan</option>
                         @foreach ($penanganans as $penanganan)
                             <option value="{{ $penanganan->id }}" data-nama-layanan="{{ $penanganan->nama_layanan }}"
                                 data-harga="{{ $penanganan->harga }}">
@@ -60,6 +76,10 @@
                             <div class="form-group">
                                 <label for="obat_id">Daftar Obat</label>
                                 <select class="form-control" id="obat_id" name="obat_id">
+                                    @php
+                                        // Mengambil data obat dari database dan mengurutkannya berdasarkan nama obat dalam urutan abjad
+                                        $obats = App\Models\Obat::orderBy('nama_obat')->get();
+                                    @endphp
                                     @foreach ($obats as $obat)
                                         <option value="{{ $obat->id }}" data-id="{{ $obat->id }}"
                                             data-nama_obat="{{ $obat->nama_obat }}" data-harga="{{ $obat->harga }}">
@@ -68,6 +88,7 @@
                                     @endforeach
                                 </select>
                             </div>
+
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="form-group">
@@ -157,16 +178,26 @@
         </div>
     </form>
     <!-- ... (kode lainnya) -->
-    <div class="row mt-4">
-        <div class="col-lg-12 table-responsive">
+    <div class="fa-group">
+        <div class="table-responsive">
             <h4 class="h4 mb-4 text-gray-800">Daftar Transaksi</h4>
-            <table class="table table-hover">
+            <form class="row g-3 col-md-3" action="" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Cari Transaksi...">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary mb-3" type="submit">Cari</button>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Nama Bidan</th>
                         <th>Nama Pasien</th>
                         <th>NIK Pasien</th>
                         <th>Layanan</th>
+                        <th>Tanggal</th>
                         <th>Total Biaya</th>
                         <th>Pembayaran</th>
                         <th>Kembalian</th>
@@ -174,25 +205,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($transaksis as $index => $transaksi)
+                    @foreach ($transaksis->sortBy('tanggal') as $transaksi)
                         <tr id="transaksi-row-{{ $transaksi->id }}">
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $transaksi->pasien->nama_pasien }}</td>
+                            <td>{{ $transaksis->perPage() * ($transaksis->currentPage() - 1) + $loop->iteration }}</td>
+                            <td>{{ $transaksi->user->nama }}</td>
+                            <td>{{ $transaksi->pasien->nama_pasien}}</td>
                             <td>{{ $transaksi->pasien->nik }}</td>
                             <td>{{ $transaksi->penanganan->nama_layanan }}</td>
+                            <td>{{ date('d-m-Y', strtotime($transaksi->tanggal)) }}</td>
+
+                            <!-- Tambah baris ini untuk menampilkan tanggal -->
                             <td>Rp. {{ number_format($transaksi->total_biaya) }}</td>
                             <td>Rp. {{ number_format($transaksi->pembayaran) }}</td>
                             <td>Rp. {{ number_format($transaksi->kembalian) }}</td>
                             <td>
                                 <a href="{{ route('user.struk.struk', ['id' => $transaksi->id]) }}"
-                                    class="btn btn-sm btn-primary" target="_blank">Cetak Struk</a>
-                                {{-- <a href="#" class="btn btn-sm btn-primary"
-                                    onclick="cetakTransaksi({{ $transaksi->id }})">Cetak</a> --}}
+                                    class="badge badge-primary" target="_blank">Cetak Struk</a>
                             </td>
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
+            {{ $transaksis->links() }}
         </div>
     </div>
 @endsection

@@ -49,8 +49,11 @@
         <hr>
         <p><span class="label"><strong>No Transaksi</strong></span><span class="label">:{{ $transaksi->id }}</span></p>
         <p><span class="label"><strong>Tanggal</strong></span><span
-                class="label">:{{ $transaksi->created_at->format('d-m-Y') }}</span>
+                class="label">:{{ date('d-m-Y', strtotime($transaksi->tanggal)) }}</></span>
         </p>
+        <p><span class="label"><strong>Nama Bidan</strong></span><span
+            class="label">:{{ $transaksi->user->nama }}</span>
+    </p>
         <p><span class="label"><strong>Nama Pasien</strong></span><span
                 class="label">:{{ $transaksi->pasien->nama_pasien }}</span>
         </p>

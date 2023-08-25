@@ -6,7 +6,7 @@
 
 @section('container')
     <!-- Page Heading -->
-    <h2 class="fas fa-table">TABEL Obat</h2>
+    <h2 class="fas fa-table">TABEL OBAT</h2>
     <!-- DataTales Example -->
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show col-md-6" role="alert">
@@ -58,6 +58,15 @@
     @enderror
     <div class="card shadow mb-4">
         <div class="card-body">
+            <!-- Tambah form pencarian di atas tabel -->
+            <form class="row g-3 col-md-3" action="{{ route('obat.index') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Cari obat...">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary mb-3" type="submit">Cari</button>
+                    </div>
+                </div>
+            </form>
             <div class="table-responsive">
                 <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah">Tambah Obat</a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -74,8 +83,13 @@
                     </thead>
                     <tbody>
                         @foreach ($obats as $obat)
+                        @php
+                        // Hitung nomor yang sesungguhnya berdasarkan halaman dan nomor iterasi
+                        $realNumber = ($obats->currentPage() - 1) * $obats->perPage() + $loop->iteration;
+                    @endphp
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $realNumber}}</td>
+                                {{-- <td>{{ $loop->iteration }}</td> --}}
                                 <td>{{ $obat->nama_obat }}</td>
                                 <td>{{ $obat->jenis_obat }}</td>
                                 <td>{{ $obat->harga }}</td>
@@ -95,8 +109,10 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $obats->links() }}
             </div>
         </div>
+
     </div>
 
     <!-- Modal Tambah-->
@@ -113,19 +129,24 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nama_obat" name="nama_obat" placeholder="Nama Obat" required>
+                            <input type="text" class="form-control" id="nama_obat" name="nama_obat"
+                                placeholder="Nama Obat" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="jenis_obat" name="jenis_obat" placeholder="Jenis Obat" required>
+                            <input type="text" class="form-control" id="jenis_obat" name="jenis_obat"
+                                placeholder="Jenis Obat" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga" required>
+                            <input type="text" class="form-control" id="harga" name="harga"
+                                placeholder="Harga" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="stok" name="stok" placeholder="Stok" required>
+                            <input type="text" class="form-control" id="stok" name="stok" placeholder="Stok"
+                                required>
                         </div>
                         <div class="form-group">
-                            <input type="date" class="form-control" id="expire_date" name="expire_date" placeholder="Expire" required>
+                            <input type="date" class="form-control" id="expire_date" name="expire_date"
+                                placeholder="Expire" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -155,19 +176,24 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <input type="hidden" name="id" id="id" value="{{ $obat->id }}">
-                                <input type="text" class="form-control" id="nama_obat" name="nama_obat" value="{{ $obat->nama_obat }}" placeholder="Nama Obat" required>
+                                <input type="text" class="form-control" id="nama_obat" name="nama_obat"
+                                    value="{{ $obat->nama_obat }}" placeholder="Nama Obat" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="jenis_obat" name="jenis_obat" value="{{ $obat->jenis_obat }}" placeholder="Jenis Obat" required>
+                                <input type="text" class="form-control" id="jenis_obat" name="jenis_obat"
+                                    value="{{ $obat->jenis_obat }}" placeholder="Jenis Obat" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="harga" name="harga" value="{{ $obat->harga }}" placeholder="harga" required>
+                                <input type="text" class="form-control" id="harga" name="harga"
+                                    value="{{ $obat->harga }}" placeholder="harga" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="stok" name="stok" value="{{ $obat->stok }}" placeholder="Stok" required>
+                                <input type="text" class="form-control" id="stok" name="stok"
+                                    value="{{ $obat->stok }}" placeholder="Stok" required>
                             </div>
                             <div class="form-group">
-                                <input type="date" class="form-control" id="expire_date" name="expire_date" value="{{ date('Y-m-d', $obat->expire_date ) }}" placeholder="Expire" required>
+                                <input type="date" class="form-control" id="expire_date" name="expire_date"
+                                    value="{{ date('Y-m-d', $obat->expire_date) }}" placeholder="Expire" required>
                             </div>
                         </div>
                         <div class="modal-footer">

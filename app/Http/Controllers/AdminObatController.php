@@ -12,12 +12,30 @@ class AdminObatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.obat.index', [
-            'obats' => Obat::all()
-        ]);
+        $search = $request->search;
+
+        // Query untuk mencari obat berdasarkan nama obat, jenis obat, expire date, id, dan harga
+        $obats = Obat::where('nama_obat', 'LIKE', "%$search%")
+            ->orWhere('jenis_obat', 'LIKE', "%$search%")
+            ->orWhere('expire_date', 'LIKE', "%$search%")
+            ->orWhere('id', 'LIKE', "%$search%")
+            ->orWhere('harga', 'LIKE', "%$search%")->paginate(10);
+
+        // Mengatur opsi pagination agar nomor halaman meneruskan dari halaman pertama
+        $obats->appends(['search' => $search]);
+
+        return view('admin.obat.index', compact('obats'));
     }
+
+
+
+
+    //     return view('admin.obat.index', [
+    //         'obats' => Obat::all()
+    //     ]);
+    // }
 
     /**
      * Show the form for creating a new resource.

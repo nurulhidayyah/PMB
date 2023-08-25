@@ -1,60 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
+    <title>Laporan Rekam Medis Imunisasi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
 
-    <title>@yield('title')</title>
+        .logo {
+            max-width: 100px;
+            height: auto;
+        }
 
-    <!-- Custom fonts for this template-->
-    <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        .title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
 
-    <!-- Custom styles for this template-->
-    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
+        .subtitle {
+            font-size: 16px;
+        }
 
+        .corps {
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ffb300;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 
-<body id="page-top">
-    <!-- Page Heading -->
-    <h2 class="fas fa-table">TABEL REKAM MEDIS</h2>
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Pasien</th>
-                            <th>Nama Anak</th>
-                            <th>Berat Badan</th>
-                            <th>Tinggi Badan</th>
-                            <th>Tekanan Darah</th>
-                            <th>Jenis Imunisasi</th>
-                            <th>Keterangan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($imunisasis as $imunisasi)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $imunisasi->pasien->nama_pasien }}</td>
-                                <td>{{ $imunisasi->nama_anak }}</td>
-                                <td>{{ $imunisasi->berat_badan }}</td>
-                                <td>{{ $imunisasi->tinggi_badan }}</td>
-                                <td>{{ $imunisasi->tekanan_darah }}</td>
-                                <td>{{ $imunisasi->jenis_imunisasi }}</td>
-                                <td>{{ $imunisasi->keterangan }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<body>
+    <div class="header">
+        <div class="title">Laporan Rekam Medis Imunisasi</div>
+        <div class="subtitle">PMB EKA MERDEKAWATI</div>
+    </div>
+
+    <div class="corps">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Pasien</th>
+                    <th>Nama Anak</th>
+                    <th>Berat Badan</th>
+                    <th>Tinggi Badan</th>
+                    <th>Tekanan Darah</th>
+                    <th>Jenis Imunisasi</th>
+                    <th>Keterangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($imunisasis as $imunisasi)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $imunisasi->pasien->nama_pasien }}</td>
+                        <td>{{ $imunisasi->nama_anak }}</td>
+                        <td>{{ $imunisasi->berat_badan }}</td>
+                        <td>{{ $imunisasi->tinggi_badan }}</td>
+                        <td>{{ $imunisasi->tekanan_darah }}</td>
+                        <td>{{ $imunisasi->jenis_imunisasi }}</td>
+                        <td>{{ $imunisasi->keterangan }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        Laporan dihasilkan pada: <?php echo date('d-m-Y H:i:s'); ?>
     </div>
 </body>
 

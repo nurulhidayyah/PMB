@@ -56,7 +56,8 @@ class RekamMedisKehamilanController extends Controller
             'diagnosa' => 'required|max:255',
             'keterangan' => 'required|max:255',
         ]);
-
+        $validatedData['tp'] = strtotime($request->tp);
+        $validatedData['hppt'] = strtotime($request->hppt);
         RekamMedisKehamilan::create($validatedData);
         return redirect('/user/rekam_medis/kehamilan')->with('success', 'Tambah Rekam Medis Berhasil');
     }

@@ -16,7 +16,7 @@ class CreateRekamMedisBalitasTable extends Migration
         Schema::create('rekam_medis_balitas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pasien_id');
-            $table->string('nama_ortu')->nullable();
+            $table->string('nama_balita')->nullable();
             $table->string('berat_badan')->nullable();
             $table->string('tinggi_badan')->nullable();
             $table->string('tekanan_darah')->nullable();

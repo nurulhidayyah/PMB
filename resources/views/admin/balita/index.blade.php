@@ -6,7 +6,7 @@
 
 @section('container')
     <!-- Page Heading -->
-    <h2 class="fas fa-table">TABEL REKAM MEDIS</h2>
+    <h2 class="fas fa-table">TABEL REKAM MEDIS BALITA</h2>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
@@ -15,8 +15,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Pasien</th>
                             <th>Nama Orang Tua</th>
+                            <th>Nama Balita</th>
                             <th>Berat Badan</th>
                             <th>Tinggi Badan</th>
                             <th>Tekanan Darah</th>
@@ -29,7 +29,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $balita->pasien->nama_pasien }}</td>
-                                <td>{{ $balita->nama_ortu }}</td>
+                                <td>{{ $balita->nama_balita }}</td>
                                 <td>{{ $balita->berat_badan }}</td>
                                 <td>{{ $balita->tinggi_badan }}</td>
                                 <td>{{ $balita->tekanan_darah }}</td>

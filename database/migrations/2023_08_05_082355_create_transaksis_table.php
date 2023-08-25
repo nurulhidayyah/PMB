@@ -11,8 +11,10 @@ class CreateTransaksisTable extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->foreignId('pasien_id');
             $table->foreignId('penanganan_id');
+            $table->string('tanggal');
             $table->decimal('total_biaya', 10, 2);
             $table->decimal('pembayaran', 10, 2);
             $table->decimal('kembalian', 10, 2);

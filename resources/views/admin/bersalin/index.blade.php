@@ -3,16 +3,15 @@
 @section('title')
     PMB | Rekam Medis
 @endsection
-
 @section('container')
     <!-- Page Heading -->
-    <h2 class="fas fa-table">TABEL REKAM MEDIS</h2>
-
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <h2 class="fas fa-table">TABEL REKAM MEDIS BERSALIN</h2>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
                 <a href="/admin/laporan/bersalin" class="btn btn-primary mb-3" target="blank">Generate Laporan</a>
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-responsive" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -28,10 +27,7 @@
                             <th>Lila</th>
                             <th>DJJ</th>
                             <th>TFU</th>
-                            <th>Tanggal Pemasangan</th>
-                            <th>Nama Pasangan</th>
                             <th>Berat Bayi</th>
-                            <th>Jumlah Anak</th>
                             <th>Diagnosa</th>
                             <th>Keterangan</th>
                         </tr>
@@ -46,16 +42,13 @@
                                 <td>{{ $bersalin->tekanan_darah }}</td>
                                 <td>{{ $bersalin->uk }}</td>
                                 <td>{{ $bersalin->prest }}</td>
-                                <td>{{ $bersalin->tp }}</td>
-                                <td>{{ $bersalin->hppt }}</td>
+                                <td>{{ date('d-m-Y', $bersalin->tp) }}</td>
+                                <td>{{ date('d-m-Y', $bersalin->hppt) }}</td>
                                 <td>{{ $bersalin->gravida }}</td>
                                 <td>{{ $bersalin->lila }}</td>
                                 <td>{{ $bersalin->djj }}</td>
                                 <td>{{ $bersalin->tfu }}</td>
-                                <td>{{ date('d-m-Y', $bersalin->tanggal_pemasangan) }}</td>
-                                <td>{{ $bersalin->nama_pasangan }}</td>
                                 <td>{{ $bersalin->berat_bayi }}</td>
-                                <td>{{ $bersalin->jumlah_anak }}</td>
                                 <td>{{ $bersalin->diagnosa }}</td>
                                 <td>{{ $bersalin->keterangan }}</td>
                             </tr>
@@ -65,5 +58,4 @@
             </div>
         </div>
     </div>
-
 @endsection

@@ -14,12 +14,6 @@ class UserPasienController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('user.pasien.index', [
-            'pasiens' => Pasien::all()
-        ]);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -84,7 +78,7 @@ class UserPasienController extends Controller
     public function update(Request $request, Pasien $pasien)
     {
         $validatedData = $request->validate([
-            'nik' => 'required|max:13|min:13|unique:pasiens',
+            'nik' => 'required|max:13|min:13|unique:pasiens,nik,' . $pasien->id,
             'nama_pasien' => 'required|max:255',
             'umur' => 'required|max:255',
             'jenis_kelamin' => 'required|max:255',
@@ -106,6 +100,7 @@ class UserPasienController extends Controller
     {
         Pasien::destroy($pasien->id);
         DB::table('rekam_medis')->where('pasien_id', $pasien->id)->delete();
+        DB::table('transaksis')->where('pasien_id', $pasien->id)->delete();
         DB::table('rekam_medis_bersalins')->where('pasien_id', $pasien->id)->delete();
         DB::table('rekam_medis_k_b_s')->where('pasien_id', $pasien->id)->delete();
         DB::table('rekam_medis_imunisasis')->where('pasien_id', $pasien->id)->delete();
@@ -113,5 +108,22 @@ class UserPasienController extends Controller
         DB::table('rekam_medis_kehamilans')->where('pasien_id', $pasien->id)->delete();
         DB::table('rekam_medis_nifas')->where('pasien_id', $pasien->id)->delete();
         return redirect('/user/pasien')->with('success', 'Pasien berhasil dihapus!');
+    }
+    public function index(Request $request)
+    {
+        $search = $request->search;
+
+        // Query untuk mencari obat berdasarkan nama obat, jenis obat, expire date, id, dan harga
+        $pasiens = Pasien::where('nik', 'LIKE', "%$search%")
+            ->orWhere('nama_pasien', 'LIKE', "%$search%")
+            ->orWhere('jenis_kelamin', 'LIKE', "%$search%")
+            ->orWhere('umur', 'LIKE', "%$search%")
+            ->orWhere('alamat', 'LIKE', "%$search%")
+            ->orWhere('no_hp', 'LIKE', "%$search%")->paginate(5);
+
+        // Mengatur opsi pagination agar nomor halaman meneruskan dari halaman pertama
+        $pasiens->appends(['search' => $search]);
+
+        return view('user.pasien.index', compact('pasiens'));
     }
 }

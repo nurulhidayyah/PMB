@@ -6,7 +6,8 @@
 
 @section('container')
     <!-- Page Heading -->
-    <h2 class="fas fa-table">TABEL REKAM MEDIS</h2>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <h2 class="fas fa-table">TABEL REKAM MEDIS KEHAMILAN</h2>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
@@ -41,8 +42,8 @@
                                 <td>{{ $kehamilan->tekanan_darah }}</td>
                                 <td>{{ $kehamilan->uk }}</td>
                                 <td>{{ $kehamilan->prest }}</td>
-                                <td>{{ $kehamilan->tp }}</td>
-                                <td>{{ $kehamilan->hppt }}</td>
+                                <td>{{ date('d-m-Y', $kehamilan->tp) }}</td>
+                                <td>{{ date('d-m-Y', $kehamilan->hppt) }}</td>
                                 <td>{{ $kehamilan->gravida }}</td>
                                 <td>{{ $kehamilan->lila }}</td>
                                 <td>{{ $kehamilan->djj }}</td>
@@ -56,5 +57,4 @@
             </div>
         </div>
     </div>
-
 @endsection

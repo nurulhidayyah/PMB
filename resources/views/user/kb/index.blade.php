@@ -6,7 +6,7 @@
 
 @section('container')
     <!-- Page Heading -->
-    <h2 class="fas fa-table">TABEL REKAM MEDIS</h2>
+    <h2 class="fas fa-table">Tabel Rekam Medis KB</h2>
     <!-- DataTales Example -->
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show col-md-6" role="alert">
@@ -59,7 +59,8 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
-                <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah">Tambah Rekam Medis</a>
+                <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah">Tambah Rekam
+                    Medis</a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -67,7 +68,7 @@
                             <th>Nama Pasien</th>
                             <th>Nama Pasangan</th>
                             <th>Jenis KB</th>
-                            <th>Tanggal Pemasangan</th>
+                            <th>Tanggal Ulang KB</th>
                             <th>Jumlah Anak</th>
                             <th>Keterangan</th>
                         </tr>
@@ -104,27 +105,46 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <select name="pasien_id" id="pasien_id" class="form-control" required>
+                            <label for="pasien_id">NIK Pasien</label>
+                            <select name="pasien_id" id="pasien_id"
+                                class="form-control @error('berat_badan') is-invalid @enderror" required>
                                 <option value="">NIK Pasien</option>
+                                @php
+                                    // Mengambil data pasien dari database dan mengurutkannya berdasarkan nama pasien dalam urutan abjad
+                                    $pasiens = App\Models\Pasien::orderBy('nama_pasien')->get();
+                                @endphp
+
                                 @foreach ($pasiens as $pasien)
-                                    <option value="{{ $pasien->id }}">{{ $pasien->nik }}</option>
+                                    <option value="{{ $pasien->id }}">{{ $pasien->nama_pasien }} - {{ $pasien->nik }}
+                                    </option>
                                 @endforeach
                             </select>
+                            @error('berat_badan')
+                                <small class="text-danger pl-3">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nama_pasangan" name="nama_pasangan"
+                                placeholder="Nama Pasangan" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nama_pasangan" name="nama_pasangan" placeholder="Nama Pasangan" required>
+                            <input type="text" class="form-control" id="jenis_kb" name="jenis_kb" placeholder="Jenis KB"
+                                required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="jenis_kb" name="jenis_kb" placeholder="Tinggi Badan" required>
+                            <input type="date" class="form-control" id="tanggal_pemasangan" name="tanggal_pemasangan"
+                                placeholder="Tanggal Ulang KB" required>
                         </div>
                         <div class="form-group">
-                            <input type="date" class="form-control" id="tanggal_pemasangan" name="tanggal_pemasangan" placeholder="Tanggal Pemasangan" required>
+                            <input type="text" class="form-control" id="jumlah_anak" name="jumlah_anak"
+                                placeholder="Jumlah Anak" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="jumlah_anak" name="jumlah_anak" placeholder="Jumlah Anak" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan" required>
+                            <input type="text" class="form-control" id="keterangan" name="keterangan"
+                                placeholder="Keterangan" required>
                         </div>
                     </div>
                     <div class="modal-footer">

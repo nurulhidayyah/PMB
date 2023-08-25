@@ -41,7 +41,7 @@ class RekamMedisBalitaController extends Controller
     {
         $validatedData = $request->validate([
             'pasien_id' => 'required|max:255',
-            'nama_ortu' => 'required|max:255',
+            'nama_balita' => 'required|max:255',
             'berat_badan' => 'required|max:255',
             'tinggi_badan' => 'required|max:255',
             'tekanan_darah' => 'required|max:255',

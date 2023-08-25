@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-primary .bg-darken-xl sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="assets/index.html">
@@ -21,8 +21,8 @@
         </li>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item {{ Request::is('kepala/transaksi*') ? 'active' : '' }}">
-            <a class="nav-link pb-0" href="/kepala/transaksi">
+        <li class="nav-item {{ Request::is('kepala/laporan*') ? 'active' : '' }}">
+            <a class="nav-link pb-0" href="/kepala/laporan">
                 <i class="fas fa-users"></i>
                 <span>Laporan</span></a>
         </li>
@@ -65,8 +65,8 @@
         </li>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item {{ Request::is('laporan/transaksi') ? 'active' : '' }}">
-            <a class="nav-link pb-0" href="{{ route('laporan.transaksi') }}">
+        <li class="nav-item {{ Request::is('admin/laporan') ? 'active' : '' }}">
+            <a class="nav-link pb-0" href="/admin/laporan">
                 <i class="fas fa-book"></i>
                 <span>Laporan</span></a>
         </li>
@@ -76,7 +76,7 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rekam_medis"
                 aria-expanded="true" aria-controls="rekam_medis">
                 <i class="fas fa-book-medical"></i>
-                <span>Lapran Rekam Medis</span>
+                <span>Laporan Rekam Medis</span>
             </a>
             <div id="rekam_medis" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">

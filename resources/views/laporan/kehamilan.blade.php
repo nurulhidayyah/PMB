@@ -2,13 +2,8 @@
 <html>
 
 <head>
-    <title>Laporan Rekam Medis</title>
+    <title>Laporan Rekam Medis Kehamilan</title>
     <style>
-        @page {
-            size: A4 portrait;
-            margin: 0;
-        }
-
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -52,7 +47,7 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #ffb300;
         }
 
         .footer {
@@ -65,7 +60,7 @@
 
 <body>
     <div class="header">
-        <div class="title">Laporan Rekam Medis</div>
+        <div class="title">Laporan Rekam Medis Kehamilan</div>
         <div class="subtitle">PMB EKA MERDEKAWATI</div>
     </div>
 
@@ -117,8 +112,8 @@
                 @foreach ($kehamilans as $kehamilan)
                     <tr>
 
-                        <td>{{ $kehamilan->tp }}</td>
-                        <td>{{ $kehamilan->hppt }}</td>
+                        <td>{{ date('d-m-Y', $kehamilan->tp) }}</td>
+                        <td>{{ date('d-m-Y', $kehamilan->hppt) }}</td>
                         <td>{{ $kehamilan->gravida }}</td>
                         <td>{{ $kehamilan->lila }}</td>
                         <td>{{ $kehamilan->djj }}</td>

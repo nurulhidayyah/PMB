@@ -66,6 +66,14 @@
     @enderror
     <div class="card shadow mb-4">
         <div class="card-body">
+            <form class="row g-3 col-md-3" action="" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Cari pasien...">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary mb-3" type="submit">Cari</button>
+                    </div>
+                </div>
+            </form>
             <div class="table-responsive">
                 <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah">Tambah Pasien</a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -83,8 +91,13 @@
                     </thead>
                     <tbody>
                         @foreach ($pasiens as $pasien)
+                            @php
+                                // Hitung nomor yang sesungguhnya berdasarkan halaman dan nomor iterasi
+                                $realNumber = ($pasiens->currentPage() - 1) * $pasiens->perPage() + $loop->iteration;
+                            @endphp
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $realNumber }}</td>
+                                {{-- <td>{{ $loop->iteration }}</td> --}}
                                 <td>{{ $pasien->nik }}</td>
                                 <td>{{ $pasien->nama_pasien }}</td>
                                 <td>{{ $pasien->umur }}</td>
@@ -100,12 +113,15 @@
                                         <button type="submit" class="badge badge-danger border-0"
                                             onclick="return confirm('Apakah yakin ingin menghapus data ini?')">Hapus</button>
                                     </form>
-                                    <a href="/user/cetak_kartu/{{ $pasien->id }}" class="badge badge-primary" target="blank">Cetak Kartu</a>
+                                    <a href="{{ url('/admin/cetak_kartu/' . $pasien->id) }}" class="badge badge-primary"
+                                        target="_blank">Cetak Kartu</a>
+
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{ $pasiens->links() }}
             </div>
         </div>
     </div>
@@ -124,13 +140,16 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="number" class="form-control" id="nik" name="nik" placeholder="No Identitas" required>
+                            <input type="number" class="form-control" id="nik" name="nik"
+                                placeholder="No Identitas" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" placeholder="Nama Pasien" required>
+                            <input type="text" class="form-control" id="nama_pasien" name="nama_pasien"
+                                placeholder="Nama Pasien" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="umur" name="umur" placeholder="Umur" required>
+                            <input type="text" class="form-control" id="umur" name="umur" placeholder="Umur"
+                                required>
                         </div>
                         <div class="form-group">
                             <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
@@ -140,10 +159,12 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="No Hp" required>
+                            <input type="text" class="form-control" id="no_hp" name="no_hp"
+                                placeholder="No Hp" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" required>
+                            <input type="text" class="form-control" id="alamat" name="alamat"
+                                placeholder="Alamat" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -172,26 +193,33 @@
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
-                                <input type="number" class="form-control" id="nik" name="nik" value="{{ $pasien->nik }}" placeholder="No Identitas" required>
+                                <input type="number" class="form-control" id="nik" name="nik"
+                                    value="{{ $pasien->nik }}" placeholder="No Identitas" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" value="{{ $pasien->nama_pasien }}" placeholder="Nama Pasien" required>
+                                <input type="text" class="form-control" id="nama_pasien" name="nama_pasien"
+                                    value="{{ $pasien->nama_pasien }}" placeholder="Nama Pasien" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="umur" name="umur" value="{{ $pasien->umur }}" placeholder="Umur" required>
+                                <input type="text" class="form-control" id="umur" name="umur"
+                                    value="{{ $pasien->umur }}" placeholder="Umur" required>
                             </div>
                             <div class="form-group">
                                 <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
                                     <option value="">Jenis Kelamin</option>
-                                    <option value="Laki-laki" {{ $pasien->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                    <option value="Perempuan" {{ $pasien->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                    <option value="Laki-laki"
+                                        {{ $pasien->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                    <option value="Perempuan"
+                                        {{ $pasien->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="no_hp" name="no_hp" value="{{ $pasien->no_hp }}" placeholder="No Hp" required>
+                                <input type="text" class="form-control" id="no_hp" name="no_hp"
+                                    value="{{ $pasien->no_hp }}" placeholder="No Hp" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $pasien->alamat }}" placeholder="Alamat" required>
+                                <input type="text" class="form-control" id="alamat" name="alamat"
+                                    value="{{ $pasien->alamat }}" placeholder="Alamat" required>
                             </div>
                         </div>
                         <div class="modal-footer">

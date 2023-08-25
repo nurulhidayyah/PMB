@@ -6,7 +6,7 @@
 
 @section('container')
     <!-- Page Heading -->
-    <h2 class="fas fa-table">TABEL REKAM MEDIS</h2>
+    <h2 class="fas fa-table">TABEL REKAM MEDIS KB</h2>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
@@ -18,7 +18,7 @@
                             <th>Nama Pasien</th>
                             <th>Nama Pasangan</th>
                             <th>Jenis KB</th>
-                            <th>Tanggal Pemasangan</th>
+                            <th>Tanggal Ulang KB</th>
                             <th>Jumlah Anak</th>
                             <th>Keterangan</th>
                         </tr>

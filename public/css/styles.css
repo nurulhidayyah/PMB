@@ -1,0 +1,28 @@
+   /* CSS untuk mengatur gaya teks dalam sel tabel */
+   .table-responsive table td {
+    white-space: nowrap;
+    /* Mencegah pemotongan teks menjadi beberapa baris */
+    overflow: hidden;
+    /* Menghilangkan overflow jika teks terlalu panjang */
+    text-overflow: ellipsis;
+    /* Menampilkan titik ellipsis jika teks terlalu panjang */
+}
+
+/* CSS untuk menghilangkan border-collapse pada sel tabel responsif */
+.table-responsive table {
+    border-collapse: separate;
+    /* Menggunakan border-collapse: separate untuk memisahkan border cel dan tidak menggabungkannya */
+    border-spacing: 0;
+    /* Mengatur jarak antara border sel */
+}
+
+.table-responsive table th,
+.table-responsive table td {
+    width: auto;
+    /* Atur lebar kolom menjadi lebar yang sesuai dengan kontennya */
+    max-width: 300px;
+    /* Batasi lebar maksimal kolom untuk menghindari teks yang terlalu panjang */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

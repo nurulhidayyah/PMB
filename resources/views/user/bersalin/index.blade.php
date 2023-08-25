@@ -6,7 +6,8 @@
 
 @section('container')
     <!-- Page Heading -->
-    <h2 class="fas fa-table">TABEL REKAM MEDIS</h2>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <h2 class="fas fa-table">Tabel Rekam Medis Bersalin</h2>
     <!-- DataTales Example -->
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show col-md-6" role="alert">

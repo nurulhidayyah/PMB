@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminLaporanController;
 use App\Http\Controllers\AdminObatController;
 use App\Http\Controllers\AdminPasienController;
 use App\Http\Controllers\AdminPenangananController;
@@ -58,7 +59,7 @@ Route::resource('/admin/penanganan', AdminPenangananController::class)->except('
 
 Route::resource('/admin/pasien', AdminPasienController::class)->except('create', 'edit', 'show')->middleware('admin');
 
-Route::get('/laporan/transaksi', [TransaksiController::class, 'index'])->name('laporan.transaksi')->middleware('admin');
+Route::get('/admin/laporan', [AdminLaporanController::class, 'index'])->name('laporan.transaksi')->middleware('admin');
 
 Route::resource('/admin/rekam_medis/umum', AdminRekamMedisController::class)->only('index')->middleware('admin');
 
@@ -74,7 +75,7 @@ Route::resource('/admin/rekam_medis/kehamilan', AdminRekamMedisKehamilanControll
 
 Route::resource('/admin/rekam_medis/nifas', AdminRekamMedisNifasController::class)->only('index')->middleware('admin');
 
-Route::get('/admin/laporan/transaksi', [Exportpdf::class, 'laporan'])->middleware('admin');
+// Route::get('/laporan/transaksi', [Exportpdf::class, 'laporan'])->middleware('admin');
 
 Route::get('/admin/laporan/umum', [Exportpdf::class, 'rekamMedis'])->middleware('admin');
 Route::get('/admin/laporan/bersalin', [Exportpdf::class, 'rekamMedisBersalin'])->middleware('admin');
@@ -88,7 +89,9 @@ Route::get('/admin/cetak_kartu/{pasien}', [Exportpdf::class, 'kartu'])->middlewa
 
 // --------------------------------------User--------------------------------------
 
+Route::get('/user/pasien/index', [UserPasienController::class, 'index'])->name('user.pasien.index')->middleware('user');
 Route::resource('/user/pasien', UserPasienController::class)->except('create', 'edit', 'show')->middleware('user');
+
 
 Route::resource('/user/rekam_medis/umum', UserRekamMedisController::class)->only('index', 'store')->middleware('user');
 

@@ -66,6 +66,14 @@
     @enderror
     <div class="card shadow mb-4">
         <div class="card-body">
+            <form class="row g-3 col-md-3" action="" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Cari pasien...">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary mb-3" type="submit">Cari</button>
+                    </div>
+                </div>
+            </form>
             <div class="table-responsive">
                 <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah">Tambah Pasien</a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -83,8 +91,13 @@
                     </thead>
                     <tbody>
                         @foreach ($pasiens as $pasien)
+                            @php
+                                // Hitung nomor yang sesungguhnya berdasarkan halaman dan nomor iterasi
+                                $realNumber = ($pasiens->currentPage() - 1) * $pasiens->perPage() + $loop->iteration;
+                            @endphp
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $realNumber }}</td>
+                                {{-- <td>{{ $loop->iteration }}</td> --}}
                                 <td>{{ $pasien->nik }}</td>
                                 <td>{{ $pasien->nama_pasien }}</td>
                                 <td>{{ $pasien->umur }}</td>
@@ -100,12 +113,15 @@
                                         <button type="submit" class="badge badge-danger border-0"
                                             onclick="return confirm('Apakah yakin ingin menghapus data ini?')">Hapus</button>
                                     </form>
-                                    <a href="/user/cetak_kartu/{{ $pasien->id }}" class="badge badge-primary" target="blank">Cetak Kartu</a>
+                                    <a href="{{ url('/user/cetak_kartu/' . $pasien->id) }}" class="badge badge-primary"
+                                        target="blank">Cetak Kartu</a>
+
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{ $pasiens->links() }}
             </div>
         </div>
     </div>
@@ -178,7 +194,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <input type="number" class="form-control" id="nik" name="nik"
-                                    value="{{ $pasien->nik }}" placeholder="No Identitas" required readonly>
+                                    value="{{ $pasien->nik }}" placeholder="No Identitas" required>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="nama_pasien" name="nama_pasien"

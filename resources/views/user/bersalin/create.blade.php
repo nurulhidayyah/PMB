@@ -15,13 +15,33 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="pasien_id">NIK Pasien</label>
+                    <select name="pasien_id" id="pasien_id" class="form-control @error('berat_badan') is-invalid @enderror" required>
+                        <option value="">NIK Pasien</option>
+                        @php
+                            // Mengambil data pasien dari database dan mengurutkannya berdasarkan nama pasien dalam urutan abjad
+                            $pasiens = App\Models\Pasien::orderBy('nama_pasien')->get();
+                        @endphp
+
+                        @foreach ($pasiens as $pasien)
+                            <option value="{{ $pasien->id }}">{{ $pasien->nama_pasien }} - {{ $pasien->nik }}</option>
+                        @endforeach
+                    </select>
+                    @error('berat_badan')
+                        <small class="text-danger pl-3">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
+
+                {{-- <div class="form-group">
+                    <label for="pasien_id">NIK Pasien</label>
                     <select name="pasien_id" id="pasien_id" class="form-control">
                         <option value="">NIK Pasien</option>
                         @foreach ($pasiens as $pasien)
                             <option value="{{ $pasien->id }}">{{ $pasien->nama_pasien }}-{{ $pasien->nik }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
                 <div class="form-group">
                     <label for="berat_badan">Berat Badan</label>
                     <input type="text"

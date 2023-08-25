@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+{{-- @extends('layouts.dashboard')
 
 @section('title')
     PMB | Laporan
@@ -144,4 +144,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --}}

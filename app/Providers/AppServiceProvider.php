@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,5 +40,6 @@ class AppServiceProvider extends ServiceProvider
         {
             return $user->role_id == 2;
         });
+        Paginator::useBootstrap();
     }
 }
