@@ -88,6 +88,10 @@ Route::get('/admin/laporan/nifas', [Exportpdf::class, 'rekamMedisNifas'])->middl
 
 Route::get('/admin/cetak_kartu/{pasien}', [Exportpdf::class, 'kartu'])->middleware('admin');
 
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware('admin');
+Route::get('/get-total-biaya-keseluruhan', [AdminController::class, 'getTotalBiayaKeseluruhan'])->middleware('admin');
+Route::get('/get-total-biaya', [AdminController::class, 'getTotalBiaya'])->middleware('admin');
+
 // --------------------------------------User--------------------------------------
 
 Route::get('/user/pasien/index', [UserPasienController::class, 'index'])->name('user.pasien.index')->middleware('user');
@@ -121,6 +125,10 @@ Route::get('/user/cetak_kartu/{pasien}', [Exportpdf::class, 'kartu'])->middlewar
 
 // -------------------------------------Kepala-------------------------------------
 Route::get('/kepala/dashboard', [AdminController::class, 'index'])->middleware('kepala');
+Route::get('/get-total-biaya-keseluruhan', [AdminController::class, 'getTotalBiayaKeseluruhan'])->middleware('kepala');
+Route::get('/get-total-biaya', [AdminController::class, 'getTotalBiaya'])->middleware('kepala');
+
+
 Route::get('/kepala/laporan', [KepalaLaporanController::class, 'index'])->name('laporan.transaksikepala')->middleware('kepala');
 
 

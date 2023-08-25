@@ -31,8 +31,8 @@
 
     @can('admin')
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item {{ Request::is('laporan') ? 'active' : '' }}">
-            <a class="nav-link pb-0" href="assets/index.html">
+        <li class="nav-item {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
+            <a class="nav-link pb-0" href="/admin/dashboard">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
