@@ -12,6 +12,8 @@ use App\Models\DetailTransaksi;
 
 class TransaksiController extends Controller
 {
+    // protected $touches = ['user'];
+
     public function index()
     {
         $transaksis = DetailTransaksi::with('transaksi')->get();
@@ -109,6 +111,7 @@ class TransaksiController extends Controller
             $detailTransaksi->save();
         }
 
+
         return redirect()->route('user.transaksi.create')->with('success', 'Transaksi berhasil disimpan.');
     }
 
@@ -155,6 +158,6 @@ class TransaksiController extends Controller
      */
     public function destroy(Transaksi $transaksi)
     {
-        //
+//
     }
 }

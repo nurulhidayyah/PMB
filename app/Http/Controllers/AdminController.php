@@ -39,8 +39,24 @@ class AdminController extends Controller
             ->whereDate('tanggal', Carbon::now())
             ->groupBy('user_id')
             ->get();
+
         // Hitung jumlah pasien baru hari ini
         $jumlahPasienBaruHariIni = Pasien::whereDate('created_at', Carbon::today())->count();
+
+        // Fetch data for the chart (total transactions per month)
+        // Fetch data for the chart (total transactions per month)
+        $chartData = Transaksi::select(DB::raw("DATE_FORMAT(tanggal, '%Y-%m') as month"), DB::raw("SUM(total_biaya) as total"))
+            ->whereBetween('tanggal', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+
+        $labels = $chartData->pluck('month')->map(function ($item) {
+            return Carbon::createFromFormat('Y-m', $item)->format('F'); // Format to month name
+        });
+
+        $values = $chartData->pluck('total');
+
 
         return view('admin.index', [
             'totalBiayaKeseluruhan' => $totalBiayaKeseluruhan,
@@ -50,6 +66,8 @@ class AdminController extends Controller
             'totalBiayaHarianKeseluruhan' => $totalBiayaHarianKeseluruhan,
             'totalBiayaHarianPerBidan' => $totalBiayaHarianPerBidan,
             'jumlahPasienBaruHariIni' => $jumlahPasienBaruHariIni,
+            'labels' => $labels,
+            'values' => $values,
         ]);
     }
 

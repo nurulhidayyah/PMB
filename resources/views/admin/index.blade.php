@@ -115,9 +115,86 @@
                 </div>
             @endforeach
         </div>
+        <!-- Area Chart -->
+        <div class="row">
+            <div class="col-xl-8 col-lg-7">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="fa-area-chart">
+                            <canvas id="myChart"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var chartElement = document.getElementById(
+        'myChart'); // Make sure the ID matches the canvas element's ID
+        var ctx = chartElement.getContext('2d');
+
+        if (ctx) {
+            console.log('Canvas context successfully obtained:', ctx);
+
+            // Your Chart.js initialization code here
+            var data = {
+                labels: @json($labels),
+                datasets: [{
+                    label: 'Total Transaksi',
+                    data: @json($values),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: 'origin'
+                }]
+            };
+            var options = {
+                plugins: {
+                    tooltip: {
+                        mode: 'index'
+                    }
+                },
+                interaction: {
+                    axis: 'x', // Interact only on the x-axis
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            callback: function(value, index, values) {
+                                // Convert label value to month name
+                                const date = new Date(value);
+                                const monthNames = [
+                                    "Januari", "Februari", "Maret",
+                                    "April", "Mei", "Juni",
+                                    "Juli", "Agustus", "September",
+                                    "Oktober", "November", "Desember"
+                                ];
+                                return monthNames[date.getMonth()];
+                            }
+                        }
+                    }
+                }
+            };
+            var myAreaChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: options
+            });
+        } else {
+            console.log('Canvas context could not be obtained. Check if the element exists.');
+        }
+    });
+</script>
+
 <script>
     $(document).ready(function() {
         // Memuat informasi total biaya keseluruhan bulanan

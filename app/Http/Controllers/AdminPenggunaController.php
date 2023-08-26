@@ -7,6 +7,9 @@ use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Pasien;
+use App\Models\Transaksi;
+use Illuminate\Support\Facades\DB;
 
 class AdminPenggunaController extends Controller
 {
@@ -112,8 +115,12 @@ class AdminPenggunaController extends Controller
             Storage::delete($request->oldImage);
         }
 
+        // // Hapus transaksi yang terkait dengan pengguna
+        // $user->transaksis()->delete();
+
+        // Hapus pengguna
         User::destroy($request->id);
 
-        return redirect('/admin/pengguna')->with('success', 'Pengguna berhasil dihapus!');
+        return redirect('/admin/pengguna')->with('success', 'Pengguna dan transaksi terkait berhasil dihapus!');
     }
 }

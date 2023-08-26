@@ -110,8 +110,8 @@
                                     <form action="/user/pasien/{{ $pasien->id }}" method="post" class="d-inline">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="badge badge-danger border-0"
-                                            onclick="return confirm('Apakah yakin ingin menghapus data ini?')">Hapus</button>
+                                        {{-- <button type="submit" class="badge badge-danger border-0"
+                                            onclick="return confirm('Apakah yakin ingin menghapus data ini?')">Hapus</button> --}}
                                     </form>
                                     <a href="{{ url('/user/cetak_kartu/' . $pasien->id) }}" class="badge badge-primary"
                                         target="blank">Cetak Kartu</a>

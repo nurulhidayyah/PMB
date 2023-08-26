@@ -404,5 +404,44 @@
         //         jendelaCetak.print();
         //     }
         //
+
+//         const nikSearchInput = document.getElementById('nik_search');
+// nikSearchInput.addEventListener('input', filterPasienOptions);
+
+// const obatSearchInput = document.getElementById('obat_search');
+// obatSearchInput.addEventListener('input', filterObatOptions);
+
+// function filterPasienOptions() {
+//     const searchTerm = nikSearchInput.value.toLowerCase();
+//     const pasienSelect = document.getElementById('pasien_id');
+
+//     for (let i = 0; i < pasienSelect.options.length; i++) {
+//         const option = pasienSelect.options[i];
+//         const optionNik = option.getAttribute('data-nik').toLowerCase();
+
+//         if (optionNik.includes(searchTerm)) {
+//             option.style.display = 'block';
+//         } else {
+//             option.style.display = 'none';
+//         }
+//     }
+// }
+
+// function filterObatOptions() {
+//     const searchTerm = obatSearchInput.value.toLowerCase();
+//     const obatSelect = document.getElementById('obat_id');
+
+//     for (let i = 0; i < obatSelect.options.length; i++) {
+//         const option = obatSelect.options[i];
+//         const optionText = option.text.toLowerCase();
+
+//         if (optionText.includes(searchTerm)) {
+//             option.style.display = 'block';
+//         } else {
+//             option.style.display = 'none';
+//         }
+//     }
+// }
+
     </script>
 @endsection

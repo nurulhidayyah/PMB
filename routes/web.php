@@ -118,6 +118,8 @@ Route::middleware(['user'])->group(function () {
     Route::post('/user/transaksi/store', [TransaksiController::class, 'store'])->name('user.transaksi.store');
 
     Route::get('/user/struk/{id}/struk', [Exportpdf::class, 'cetakStruk'])->name('user.struk.struk');
+    // Route::delete('/delete-transaksi/{id}', [TransaksiController::class, 'destroy'])->name('delete.transaksi');
+
     // Route::get('/user/transaksi', [Exportpdf::class, 'create'])->middleware('user');
 });
 

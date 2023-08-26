@@ -100,7 +100,7 @@ class UserPasienController extends Controller
     {
         Pasien::destroy($pasien->id);
         DB::table('rekam_medis')->where('pasien_id', $pasien->id)->delete();
-        DB::table('transaksis')->where('pasien_id', $pasien->id)->delete();
+        // DB::table('transaksis')->where('pasien_id', $pasien->id)->delete();
         DB::table('rekam_medis_bersalins')->where('pasien_id', $pasien->id)->delete();
         DB::table('rekam_medis_k_b_s')->where('pasien_id', $pasien->id)->delete();
         DB::table('rekam_medis_imunisasis')->where('pasien_id', $pasien->id)->delete();

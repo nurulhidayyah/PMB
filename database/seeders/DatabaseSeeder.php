@@ -50,6 +50,20 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123'),
             'role_id' => 3
         ]);
+        User::create([
+            'nama' => 'Aisyah Larasati',
+            'email' => 'aisyah@gmail.com',
+            'phone' => '081298231608',
+            'password' => Hash::make('123'),
+            'role_id' => 3
+        ]);
+        User::create([
+            'nama' => 'Evi',
+            'email' => 'evi@gmail.com',
+            'phone' => '081298076108',
+            'password' => Hash::make('123'),
+            'role_id' => 3
+        ]);
 
         UserRole::create([
             'role' => 'Administrator'
