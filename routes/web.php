@@ -41,7 +41,8 @@ use Illuminate\Support\Facades\Route;
 */
 // ----------------------------Login dan Registarai--------------------------------
 
-Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/', [LoginController::class, 'index'])->name('landing');
+Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
