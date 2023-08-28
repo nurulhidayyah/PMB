@@ -10,12 +10,17 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
-                <a href="/admin/laporan/imunisasi" class="btn btn-primary mb-3" target="blank">Generate Laporan</a>
+                @can('admin')
+                    <a href="/admin/laporan/imunisasi" class="btn btn-primary mb-3" target="blank">Generate Laporan</a>
+                @endcan
+                @can('kepala')
+                    <a href="/kepala/laporan/imunisasi" class="btn btn-primary mb-3" target="blank">Generate Laporan</a>
+                @endcan
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Pasien</th>
+                            <th>Nama Orang Tua</th>
                             <th>Nama Anak</th>
                             <th>Berat Badan</th>
                             <th>Tinggi Badan</th>

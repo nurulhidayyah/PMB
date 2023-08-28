@@ -21,11 +21,29 @@
         </li>
 
         <!-- Nav Item - Charts -->
-        <!-- Nav Item - Charts -->
         <li class="nav-item {{ Request::is('kepala/laporan') ? 'active' : '' }}">
             <a class="nav-link pb-0" href="/kepala/laporan">
                 <i class="fas fa-book"></i>
                 <span>Laporan</span></a>
+        </li>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item {{ Request::is('kepala/rekam_medis*') ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#rekam_medis"
+                aria-expanded="true" aria-controls="rekam_medis">
+                <i class="fas fa-book-medical"></i>
+                <span>Laporan Rekam Medis</span>
+            </a>
+            <div id="rekam_medis" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/kepala/rekam_medis/umum">Umum</a>
+                    <a class="collapse-item" href="/kepala/rekam_medis/bersalin">Bersalin</a>
+                    <a class="collapse-item" href="/kepala/rekam_medis/kb">KB</a>
+                    <a class="collapse-item" href="/kepala/rekam_medis/imunisasi">Imunisasi</a>
+                    <a class="collapse-item" href="/kepala/rekam_medis/balita">Balita</a>
+                    <a class="collapse-item" href="/kepala/rekam_medis/kehamilan">Kehamilan</a>
+                    <a class="collapse-item" href="/kepala/rekam_medis/nifas">Nifas</a>
+                </div>
+            </div>
         </li>
     @endcan
 

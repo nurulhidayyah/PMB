@@ -133,9 +133,28 @@ Route::get('/get-total-biaya', [AdminController::class, 'getTotalBiaya'])->middl
 
 Route::get('/kepala/laporan', [KepalaLaporanController::class, 'index'])->name('laporan.transaksikepala')->middleware('kepala');
 
+Route::resource('/kepala/rekam_medis/umum', AdminRekamMedisController::class)->only('index')->middleware('kepala');
 
+Route::resource('/kepala/rekam_medis/bersalin', AdminRekamMedisBersalinController::class)->only('index')->middleware('kepala');
+
+Route::resource('/kepala/rekam_medis/kb', AdminRekamMedisKBController::class)->only('index')->middleware('kepala');
+
+Route::resource('/kepala/rekam_medis/imunisasi', AdminRekamMedisImunisasiController::class)->only('index')->middleware('kepala');
+
+Route::resource('/kepala/rekam_medis/balita', AdminRekamMedisBalitaController::class)->only('index')->middleware('kepala');
+
+Route::resource('/kepala/rekam_medis/kehamilan', AdminRekamMedisKehamilanController::class)->only('index')->middleware('kepala');
+
+Route::resource('/kepala/rekam_medis/nifas', AdminRekamMedisNifasController::class)->only('index')->middleware('kepala');
 // Route::get('/kepala/laporan/transaksi', [Exportpdf::class, 'laporan'])->middleware('kepala');
 
+Route::get('/kepala/laporan/umum', [Exportpdf::class, 'rekamMedis'])->middleware('kepala');
+Route::get('/kepala/laporan/bersalin', [Exportpdf::class, 'rekamMedisBersalin'])->middleware('kepala');
+Route::get('/kepala/laporan/kb', [Exportpdf::class, 'rekamMedisKB'])->middleware('kepala');
+Route::get('/kepala/laporan/imunisasi', [Exportpdf::class, 'rekamMedisImunisasi'])->middleware('kepala');
+Route::get('/kepala/laporan/balita', [Exportpdf::class, 'rekamMedisBalita'])->middleware('kepala');
+Route::get('/kepala/laporan/kehamilan', [Exportpdf::class, 'rekamMedisKehamilan'])->middleware('kepala');
+Route::get('/kepala/laporan/nifas', [Exportpdf::class, 'rekamMedisNifas'])->middleware('kepala');
 // ----------------------------------Settings--------------------------------------
 
 Route::resource('/setting', SettingProfileController::class)->only('index', 'edit', 'update')->middleware('auth');

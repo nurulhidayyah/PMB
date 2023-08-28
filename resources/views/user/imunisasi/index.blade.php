@@ -73,7 +73,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Pasien</th>
+                            <th>Nama Orang Tua</th>
                             <th>Nama Anak</th>
                             <th>Berat Badan</th>
                             <th>Tinggi Badan</th>
